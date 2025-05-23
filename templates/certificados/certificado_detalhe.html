@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado - {{ certificado.nome_curso }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .certificate-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .certificate-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #0d6efd;
+        }
+        .certificate-content {
+            margin-bottom: 2rem;
+        }
+        .certificate-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #dee2e6;
+        }
+        .qrcode-container {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .qrcode-image {
+            max-width: 150px;
+            margin: 0 auto;
+        }
+        .certificate-seal {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.2;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #0d6efd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-15deg);
+        }
+        .certificate-seal span {
+            color: #0d6efd;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            .certificate-container {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="certificate-container">
+                    <div class="certificate-header">
+                        <h1 class="display-6 fw-bold">CERTIFICADO</h1>
+                        <p class="lead">{{ certificado.nome_curso }}</p>
+                    </div>
+                    
+                    <div class="certificate-content">
+                        <p class="fs-5 text-center mb-4">
+                            Certificamos que <strong>{{ certificado.nome_usuario }}</strong> 
+                            concluiu com êxito o curso de <strong>{{ certificado.nome_curso }}</strong>, 
+                            realizado no período de {{ certificado.data_inicio|date:"d/m/Y" }} a {{ certificado.data_final|date:"d/m/Y" }}.
+                        </p>
+                        
+                        <div class="row mt-5">
+                            <div class="col-md-6">
+                                <p><strong>CPF:</strong> {{ certificado.cpf }}</p>
+                                <p><strong>Data de Emissão:</strong> {{ certificado.data_emissao|date:"d/m/Y" }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Código de Validação:</strong> {{ certificado.codigo_validacao }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="qrcode-container">
+                        {% if certificado.qrcode_imagem %}
+                        <img src="{{ certificado.qrcode_imagem.url }}" alt="QR Code de Validação" class="qrcode-image">
+                        {% endif %}
+                        <p class="text-muted mt-2">Escaneie o QR Code para validar este certificado</p>
+                    </div>
+                    
+                    <div class="certificate-footer">
+                        <p class="mb-0">Este certificado pode ser validado em nosso site utilizando o código de validação.</p>
+                    </div>
+                    
+                    <div class="certificate-seal">
+                        <span>CERTIFICADO VÁLIDO</span>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-5 no-print">
+                    <a href="{% url 'index' %}" class="btn btn-outline-secondary me-2">Voltar</a>
+                    <button onclick="window.print()" class="btn btn-primary">Imprimir Certificado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

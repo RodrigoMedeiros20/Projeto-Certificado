@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Certificado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .validation-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .validation-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .validation-success {
+            border-left: 5px solid #198754;
+        }
+        .validation-icon {
+            font-size: 3rem;
+            color: #198754;
+            margin-bottom: 1rem;
+        }
+        .certificate-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="validation-container validation-success">
+                    <div class="validation-header">
+                        <div class="validation-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                        </div>
+                        <h1 class="h3">Certificado Válido</h1>
+                        <p class="lead">Este certificado foi emitido oficialmente e é autêntico.</p>
+                    </div>
+                    
+                    <div class="certificate-info">
+                        <h2 class="h5 mb-3">Informações do Certificado</h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <p><strong>Nome:</strong> {{ certificado.nome_usuario }}</p>
+                                <p><strong>CPF:</strong> {{ certificado.cpf }}</p>
+                                <p><strong>Curso:</strong> {{ certificado.nome_curso }}</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <p><strong>Data de Início:</strong> {{ certificado.data_inicio|date:"d/m/Y" }}</p>
+                                <p><strong>Data de Conclusão:</strong> {{ certificado.data_final|date:"d/m/Y" }}</p>
+                                <p><strong>Data de Emissão:</strong> {{ certificado.data_emissao|date:"d/m/Y" }}</p>
+                            </div>
+                        </div>
+                        <p><strong>Código de Validação:</strong> {{ certificado.codigo_validacao }}</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mb-5">
+                    <a href="{% url 'index' %}" class="btn btn-primary">Voltar para Página Inicial</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
