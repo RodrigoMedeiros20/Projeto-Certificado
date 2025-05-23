@@ -3,8 +3,6 @@ from .models import Certificado
 from django.http import HttpResponse
 import re
 
-# Create your views here.
-
 def index(request):
     """
     Página inicial com formulário de pesquisa por CPF
@@ -12,30 +10,28 @@ def index(request):
     certificados = []
     mensagem = None
     cpf_pesquisado = None
-
+    
     if request.method == 'POST':
         cpf = request.POST.get('cpf', '').strip()
         cpf_pesquisado = cpf
-
+        
         # Limpa o CPF para busca (remove pontos, traços, etc)
         cpf_limpo = re.sub(r'[^0-9]', '', cpf)
-
+        
         if cpf_limpo:
-
             # Busca certificados pelo CPF - MODIFICADO para comparação exata
             certificados = []
-            for cert in Certificado.objecs.all():
-
+            for cert in Certificado.objects.all():
                 # Limpa o CPF do banco para comparação
                 cert_cpf_limpo = re.sub(r'[^0-9]', '', cert.cpf)
                 if cert_cpf_limpo == cpf_limpo:
                     certificados.append(cert)
-
+            
             if not certificados:
-                mensagem = "Nenhum certificado encontrado para o CPF informado"
+                mensagem = "Nenhum certificado encontrado para o CPF informado."
         else:
-            mensagem = "Por favor, informe um CPF válido"
-
+            mensagem = "Por favor, informe um CPF válido."
+    
     return render(request, 'certificados/index.html', {
         'certificados': certificados,
         'mensagem': mensagem,
@@ -55,7 +51,7 @@ def validar_certificado(request, codigo_validacao):
     """
     Página de validação do certificado via QR Code
     """
-    certificado = get_object_or_404(Certificado, codigo_validacao)
+    certificado = get_object_or_404(Certificado, codigo_validacao=codigo_validacao)
     return render(request, 'certificados/validar_certificado.html', {
         'certificado': certificado,
         'validado': True
