@@ -25,6 +25,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,6 +34,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'certificados',
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Painel de Certificados",
+    "site_header": "Administração de Certificados",
+    "site_brand": "Certificados",
+    "welcome_sign": "Bem-vindo ao Painel",
+    "copyright": "© 2025",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

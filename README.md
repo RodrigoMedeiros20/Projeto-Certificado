@@ -100,7 +100,3 @@ Este é um sistema completo para emissão e validação de certificados, desenvo
 ## Personalização
 
 Você pode personalizar o sistema editando os templates HTML em `templates/` e os estilos CSS embutidos nos templates.
-
-## Suporte
-
-Para suporte, entre em contato através do email: suporte@exemplo.com

@@ -2,30 +2,31 @@
 {% load i18n static %}
 
 {% block content %}
-<div>
-    <h1>Importar Certificados do Excel</h1>
-    <p>Selecione um arquivo Excel (.xlsx ou .xls) contendo os dados dos certificados.</p>
-    <p>O arquivo deve conter as seguintes colunas:</p>
-    <ul>
-        <li>Nome do usuário</li>
-        <li>CPF do usuário</li>
-        <li>Nome do curso</li>
-        <li>Data início do curso</li>
-        <li>Data final do curso</li>
-    </ul>
-    
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div>
-            <label for="excel_file">Arquivo Excel:</label>
-            <input type="file" name="excel_file" id="excel_file" accept=".xlsx, .xls" required>
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="h4 text-success mb-3">📄 Importar Certificados via Excel/CSV</h2>
+        <p class="text-muted">Selecione um arquivo <strong>.xlsx, .xls ou .csv</strong> com os dados dos certificados.</p>
+        <p>As colunas devem estar <strong>na ordem exata</strong>:</p>
+
+        <div class="alert alert-info">
+            <ul class="mb-0">
+                <li>Nome do usuário</li>
+                <li>CPF do usuário</li>
+                <li>Nome do curso</li>
+                <li>Data início do curso</li>
+                <li>Data final do curso</li>
+            </ul>
         </div>
-        <br>
-        <div>
-            <input type="submit" value="Importar Certificados">
-        </div>
-    </form>
-    <br>
-    <a href="{% url 'admin:certificados_certificado_changelist' %}" class="button">Voltar para a lista de certificados</a>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="excel_file" class="form-label">Arquivo:</label>
+                <input type="file" name="excel_file" id="excel_file" class="form-control" accept=".xlsx,.xls,.csv" required>
+            </div>
+            <button type="submit" class="btn btn-success">📤 Importar</button>
+            <a href="{% url 'admin:certificados_certificado_changelist' %}" class="btn btn-outline-secondary ms-2">Voltar</a>
+        </form>
+    </div>
 </div>
 {% endblock %}
